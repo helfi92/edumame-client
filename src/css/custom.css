@@ -1,0 +1,18 @@
+body, html {
+    background: green;
+    font-size: 62.5%;
+}
+
+a {
+    color: white;
+    margin-right: 1em;
+}
+
+div {
+    font-size: 2rem;
+}
+
+button {
+    padding: 1rem 1.5rem;
+    margin: 1rem;
+}
