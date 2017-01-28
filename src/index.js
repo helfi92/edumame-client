@@ -1,5 +1,6 @@
-import './css/custom.css';
-import './css/custom-2.css';
+import 'bulma/css/bulma.css';
+// import './css/custom.css';
+// import './css/custom-2.css';
 
 import React from 'react';
 import { render } from 'react-dom';

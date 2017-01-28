@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import Navbar from './navbar';
 
 class Home extends Component {
   render() {
@@ -7,11 +7,11 @@ class Home extends Component {
 
     return (
       <div>
-        <ul role="nav">
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/users">Users</Link></li>
-        </ul>
-        {this.props.children}
+        <Navbar />
+
+        <section className="container">
+          {this.props.children}
+        </section>
       </div>
     );
   }
