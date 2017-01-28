@@ -1,18 +1,12 @@
-body, html {
-    background: green;
-    font-size: 62.5%;
+.search-container {
+    text-align: center;
 }
 
-a {
-    color: white;
-    margin-right: 1em;
+.logo-container {
+    margin-bottom: 1rem;
+    margin-top: 100px;
 }
 
-div {
-    font-size: 2rem;
-}
-
-button {
-    padding: 1rem 1.5rem;
-    margin: 1rem;
+.search-results-input {
+    margin-top: 1rem;
 }

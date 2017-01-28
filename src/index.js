@@ -1,7 +1,7 @@
 import 'font-awesome/css/font-awesome.css';
 import 'bulma/css/bulma.css';
-// import './css/custom.css';
-// import './css/custom-2.css';
+import './css/custom.css';
+import './app';
 
 import React from 'react';
 import { render } from 'react-dom';
@@ -13,17 +13,19 @@ import { Provider } from 'react-redux';
 const store = applyMiddleware()(createStore)(reducer);
 const rootEl = document.getElementById('root');
 
-import Users from './components/users';
-import About from './components/about';
+import Browse from './components/browse';
+import Search from './views/search';
 import Home from './components/home';
+import SearchResults from './views/searchResults';
 
 const renderApp = () => {
   render(
     <Provider store={store}>
       <Router history={browserHistory}>
         <Route path="/" component={Home}>
-          <Route path="/users" component={Users} />
-          <Route path="/about" component={About} />
+          <Route path="/browse" component={Browse} />
+          <Route path="/search" component={Search} />
+          <Route path="/searchResults" component={SearchResults} />
         </Route>
       </Router>
     </Provider>,
