@@ -25,7 +25,7 @@ class Search extends Component {
       <div className="columns is-centered">
         <div className="column is-half search-container">
           <div className="logo-container">
-            <img width="200" className="logo" src="../images/logo.jpg" />
+            <img width="150" className="logo" src="../images/logo.jpg" />
           </div>
          <SearchProblemSets onChange={this.onChange} value={this.props.searchTerm} />
         </div>

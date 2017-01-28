@@ -28,17 +28,14 @@ export default class Navbar extends Component {
 
     return (
       <nav className="nav container">
-        <div className="nav-left">
-          <Link className="nav-item" to="/search">
-            <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo" />
-          </Link>
+        <div className="nav-left nav-menu">
+          <div className="nav-item">
+            <Link to="/search">EDUMA.ME</Link>
+          </div>
         </div>
-
         <div className="nav-right nav-menu">
           <Auth title="Login" actionLabel="Login" action={this.login}/>
           <Auth title="Register" actionLabel="Register" action={this.register}/>
-          <Link className="nav-item" to="/search">Search</Link>
-          <Link className="nav-item" to="/browse">Browse</Link>
         </div>
       </nav>
     );

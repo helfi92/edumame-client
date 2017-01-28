@@ -5,12 +5,13 @@ import './app';
 
 import React from 'react';
 import { render } from 'react-dom';
+import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import reducer from './reducers';
 import { Router, Route, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 
-const store = applyMiddleware()(createStore)(reducer);
+const store = applyMiddleware(thunk)(createStore)(reducer);
 const rootEl = document.getElementById('root');
 
 import Browse from './components/browse';

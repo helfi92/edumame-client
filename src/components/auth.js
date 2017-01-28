@@ -39,7 +39,7 @@ class Auth extends Component {
     return (
       <div>
         <span className="nav-item">
-          <button onClick={this.toggle} className="button is-primary">{title}</button>
+          <a className="nav-item" onClick={this.toggle}>{title}</a>
         </span>
 
         <div className={isModalOpen}>
