@@ -13,13 +13,16 @@ const rootEl = document.getElementById('root');
 
 import Users from './components/users';
 import About from './components/about';
+import Home from './components/home';
 
 const renderApp = () => {
   render(
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path="/" component={Users} />
-        <Route path="/about" component={About} />
+        <Route path="/" component={Home}>
+          <Route path="/users" component={Users} />
+          <Route path="/about" component={About} />
+        </Route>
       </Router>
     </Provider>,
     rootEl
