@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
+import Login from './login';
+import Register from './register';
+
 export default class Navbar extends Component {
   render() {
     this.test = 'test';
@@ -14,6 +17,8 @@ export default class Navbar extends Component {
         </div>
 
         <div className="nav-right nav-menu">
+          <Login />
+          <Register />
           <Link className="nav-item" to="/about">About</Link>
           <Link className="nav-item" to="/users">Users</Link>
         </div>
