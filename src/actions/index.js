@@ -225,7 +225,7 @@ export const googleSearch = (term) => {
     return (dispatch) => {
         dispatch(clearPdfs());
         axios.get(`http://localhost:3030/scrape?term=${term}`).then(({data}) => {
-            dispatch({type: 'GET_EXAMS', payload: data});
+            dispatch({type: 'Garbage', payload: data});
         }).catch(err => console.log('ERR GOOGLE', err));
     };
 };
