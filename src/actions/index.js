@@ -8,6 +8,7 @@ import {
     RETRIEVING_PROBLEM_SET,
     GET_EXAMS,
     GET_COMMENTS,
+    NEW_COMMENT,
 } from "./types";
 import app from "../app";
 
@@ -128,19 +129,22 @@ export const logout = () => {
     };
 };
 
+export const getComments = (set) => {
+  return (dispatch) => {
+    commentService.find({ problemset: set._id })
+      .then(comments => dispatch({ type: GET_COMMENTS, payload: comments }))
+      .catch(err => {console.log(err)});
+  };
+};
+
 export const postComment = (user, set) => {
     return (dispatch) => {
       commentService.create({ text: "comment here", problemset: set._id, commenter: user.data._id})
-        .then(comment => { console.log('new comment: ', comment);})
+        .then(comment => {
+          dispatch({ type: NEW_COMMENT, payload: comment })
+          dispatch(getComments(set));
+        })
         .catch(err => console.log('err: ', err));
-    };
-};
-
-export const getComments = (set) => {
-    return (dispatch) => {
-      commentService.find({ problemset: set._id })
-        .then(comments => dispatch({ type: GET_COMMENTS, payload: comments }))
-        .catch(err => {console.log(err)});
     };
 };
 
@@ -154,14 +158,33 @@ export const rateProblemSet = (user, set) => {
     };
 };
 
-export const rateComment = (user, set, comment) => {
-    console.log('rating comment!');
-    return (dispatch) => {
-        comment.upvotes.push(user._id);
-        commentService.update(comment._id, { upvotes: comment.upvotes, downvotes: comment.downvotes })
-          .then(comment => {
-            dispatch(getComments(set));
-          })
-          .catch(err => {console.log('err: ', err)});
+
+export const downVoteComment = (user, set, comment) => {
+  return (dispatch) => {
+    if (!comment.upvotes.includes(user._id)) {
+      comment.downvotes.push(user._id);
+    }
+
+    commentService.update(comment._id, { downvotes: comment.downvotes })
+      .then(comment => {
+        dispatch(getComments(set));
+      })
+      .catch(err => {console.log('err: ', err)});
+  };
+};
+
+export const upVoteComment = (user, set, comment) => {
+  return (dispatch) => {
+    if (!comment.upvotes.includes(user._id)) {
+      comment.upvotes.push(user._id);
+
+      commentService.update(comment._id, { upvotes: comment.upvotes })
+        .then(comment => {
+          dispatch(getComments(set));
+        })
+        .catch(err => {
+          console.log('err: ', err)
+        });
     };
+  };
 };

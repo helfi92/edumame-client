@@ -34,18 +34,18 @@ class ProblemSet extends Component {
       return undefined;
     }
 
-    return comments.map((comment, key)=> {
+    return comments.map((cmnt, key)=> {
       return (
         <article key={key} className="media">
           <figure className="media-left">
-            <Vote user={user} comment={comment} set={set} />
+            <Vote user={user} comment={cmnt} set={set} />
           </figure>
           <div className="media-content">
             <div className="content">
               <p>
                 <strong>Barbara Middleton</strong>
                 <br />
-                {comment.text}
+                {cmnt.text}
                 <br />
                 <small><a>Like</a> · <a>Reply</a> · 3 hrs</small>
               </p>

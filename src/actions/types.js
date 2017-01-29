@@ -8,3 +8,4 @@ export const RETRIEVING_PROBLEM_SET = 'RETRIEVING_PROBLEM_SET';
 export const GET_EXAMS = 'GET_EXAMS';
 export const CREATE_COMMENT = 'CREATE_COMMENT';
 export const GET_COMMENTS = 'GET_COMMENTS';
+export const NEW_COMMENT = 'NEW_COMMENT';

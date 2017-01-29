@@ -11,13 +11,15 @@ class Vote extends Component {
   }
 
   onVoteUp() {
-    const { comment, user, set, rateComment } = this.props;
+    const { comment, user, set, upVoteComment } = this.props;
 
-    rateComment(user, set, comment);
+    upVoteComment(user, set, comment);
   }
 
   onVoteDown() {
-    const { comment, user, set } = this.props;
+    const { comment, user, set, downVoteComment } = this.props;
+
+    downVoteComment(user, set, comment);
   }
 
   render() {
