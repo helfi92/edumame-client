@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-// import app from './feathers';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 class Auth extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class Auth extends Component {
     this.toggle = this.toggle.bind(this);
     this.onEmailChange = this.onEmailChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
+    this.action = this.action.bind(this);
   }
 
   toggle() {
@@ -30,11 +32,25 @@ class Auth extends Component {
     this.setState({ password: event.target.value });
   }
 
+  action() {
+    console.log('action!');
+    const { email, password } = this.state;
+    const { actionLabel, login, logout, register } = this.props;
+    console.log('login function: ', login);
+    if (actionLabel.toLowerCase() === 'login') {
+      login(email, password);
+    } else if (actionLabel.toLowerCase() === 'register') {
+      register(email, password);
+    } else if (actionLabel.toLowerCase() === 'logout') {
+      logout();
+    }
+  }
+
   render() {
     this.test = '';
     const isModalOpen = `modal${this.state.open ? ' is-active' : ''}`;
     const { email, password } = this.state;
-    const { title, actionLabel, action } = this.props;
+    const { title, actionLabel } = this.props;
 
     return (
       <div>
@@ -64,7 +80,7 @@ class Auth extends Component {
               </p>
             </section>
             <footer className="modal-card-foot">
-              <button onClick={() => action(email, password)} className="button is-primary">{actionLabel}</button>
+              <button onClick={() => this.action(email, password)} className="button is-primary">{actionLabel}</button>
               <button onClick={this.toggle} className="button">Cancel</button>
             </footer>
           </div>
@@ -75,4 +91,7 @@ class Auth extends Component {
   }
 }
 
-export default Auth;
+const mapStateToProps = ({ user }) => ({ user });
+
+export default connect(mapStateToProps, actions)(Auth);
+

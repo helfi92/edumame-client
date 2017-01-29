@@ -11,6 +11,10 @@ class Search extends Component {
     this.onChange = this.onChange.bind(this);
   }
 
+  componentDidMount() {
+    this.props.login();
+  }
+
   onChange(event) {
     const value = event.target.value;
 

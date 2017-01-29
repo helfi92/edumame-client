@@ -14,3 +14,7 @@
 .rating-container {
     text-align: center;
 }
+
+.nav-auth {
+    display: inherit;
+}

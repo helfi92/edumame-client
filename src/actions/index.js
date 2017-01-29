@@ -1,19 +1,11 @@
 import {
   SEARCH_TERM,
-  PROBLEM_SETS
+  PROBLEM_SETS,
+  SET_USER,
+  SET_USER_FAILURE,
+  REGISTER_FAILURE,
 } from './types';
-
-export const increaseCounter = () => {
-  return {
-    type: 'INCREASE_COUNTER',
-  };
-};
-
-export const decreaseCounter = () => {
-  return {
-    type: 'DECREASE_COUNTER',
-  };
-};
+import app from '../app';
 
 // Term to save before switching to a different view
 export const setSearchTerm = (term) => {
@@ -38,8 +30,46 @@ export const getProblemSets = () => {
    setTimeout(() => {
      dispatch({
        type: PROBLEM_SETS,
-       payload: mockProblemSets
-     })
+       payload: mockProblemSets,
+     });
    }, 2000);
+  };
+};
+
+export const login = (email, password) => {
+  return (dispatch) => {
+    const loginSuccess = (user) => ({
+      type: SET_USER, payload: user,
+    });
+
+    const loginFailure = (err) => ({
+      type: SET_USER_FAILURE, payload: err,
+    });
+
+    if (email && password) {
+      app.authenticate({ type: 'local', email, password, })
+        .then(user => dispatch(loginSuccess(user)))
+        .catch(err => dispatch(loginFailure(err)));
+    } else {
+      app.authenticate()
+        .then(user => dispatch(loginSuccess(user)))
+        .catch(err => dispatch(loginFailure(err)));
+    }
+  };
+};
+
+export const register = (email, password) => {
+  return (dispatch) => {
+    app.service('users').create({ email, password, firstName: "Kenta", lastName: "Iwasaki", })
+      .then(user => login(email, password))
+      .catch(err => dispatch({ type: REGISTER_FAILURE, payload: err, }));
+  };
+};
+
+export const logout = () => {
+  return (dispatch) => {
+    app.logout()
+      .then(response => dispatch({ type: SET_USER, payload: null, }))
+      .catch(err => dispatch({ type: 'LOGOUT', payload: err }));
   };
 };
