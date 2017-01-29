@@ -1328,7 +1328,7 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
-coffee-script@*:
+coffee-script@*, coffee-script@latest:
   version "1.12.3"
   resolved "https://registry.yarnpkg.com/coffee-script/-/coffee-script-1.12.3.tgz#de5f4b1b934a4e9f915c57acd7ad323f68f715db"
 
@@ -4171,6 +4171,10 @@ node-dir@^0.1.10:
   dependencies:
     minimatch "^3.0.2"
 
+node-ensure@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/node-ensure/-/node-ensure-0.0.0.tgz#ecae764150de99861ec5c810fd5d096b183932a7"
+
 node-fetch@^1.0.1:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.6.3.tgz#dc234edd6489982d58e8f0db4f695029abcd8c04"
@@ -4524,6 +4528,18 @@ pause@0.0.1:
 pbkdf2-compat@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/pbkdf2-compat/-/pbkdf2-compat-2.0.1.tgz#b6e0c8fa99494d94e0511575802a59a5c142f288"
+
+pdf.js@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/pdf.js/-/pdf.js-0.1.0.tgz#d0844642efd2b01fde355b22a7cc3432382bd64e"
+  dependencies:
+    coffee-script latest
+
+pdfjs-dist@1.6.361:
+  version "1.6.361"
+  resolved "https://registry.yarnpkg.com/pdfjs-dist/-/pdfjs-dist-1.6.361.tgz#9deee7585f5554f718e0385cc8d1f14f3a885015"
+  dependencies:
+    node-ensure "^0.0.0"
 
 pify@^2.0.0, pify@^2.3.0:
   version "2.3.0"
@@ -4975,6 +4991,12 @@ react-hot-loader@1.3.0:
   dependencies:
     react-hot-api "^0.4.5"
     source-map "^0.4.4"
+
+react-pdf-js@^1.0.32:
+  version "1.0.32"
+  resolved "https://registry.yarnpkg.com/react-pdf-js/-/react-pdf-js-1.0.32.tgz#daeee5c83977d04f698fdd34f929f8d2777f55ea"
+  dependencies:
+    pdfjs-dist "1.6.361"
 
 react-redux@^5.0.2:
   version "5.0.2"
@@ -5705,7 +5727,7 @@ style-loader@0.13.1:
   dependencies:
     loader-utils "^0.2.7"
 
-supports-color@3.1.2:
+supports-color@3.1.2, supports-color@^3.1.0, supports-color@^3.1.1:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-3.1.2.tgz#72a262894d9d408b956ca05ff37b2ed8a6e2a2d5"
   dependencies:
@@ -5719,7 +5741,7 @@ supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
 
-supports-color@^3.1.0, supports-color@^3.1.1, supports-color@^3.2.3:
+supports-color@^3.2.3:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-3.2.3.tgz#65ac0504b3954171d8a64946b2ae3cbb8a5f54f6"
   dependencies:
