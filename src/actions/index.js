@@ -9,7 +9,9 @@ import {
     GET_EXAMS,
     GET_COMMENTS,
     NEW_COMMENT,
+    URLS,
 } from "./types";
+import axios from 'axios';
 import app from "../app";
 
 const userService = app.service('users');
@@ -186,5 +188,13 @@ export const upVoteComment = (user, set, comment) => {
           console.log('err: ', err)
         });
     };
+  };
+};
+
+export const googleSearch = (term) => {
+  return (dispatch) => {
+    axios.get(`http://localhost:3030/scrape?term=${term}`).then(({ data }) => {
+      dispatch({type: 'GET_EXAMS', payload: data });
+    }).catch(err => console.log('ERR GOOGLE', err));
   };
 };
