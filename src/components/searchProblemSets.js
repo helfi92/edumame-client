@@ -18,7 +18,6 @@ class SearchProblemSets extends Component {
       console.log('ENTER!');
       this.props.setLoading(true);
       this.props.getProblemSets();
-      this.props.getExams();
     }
   }
 

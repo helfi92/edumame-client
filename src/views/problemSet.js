@@ -73,7 +73,7 @@ class ProblemSet extends Component {
       <div>
         <h1 className="title">Problem Set</h1>
         <div className="columns">
-          <div className="column is-6"><iframe className="pdf-frame" src={set.url || 'https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-introduction-to-algorithms-sma-5503-fall-2005/exams/prac_final_sol.pdf'} /></div>
+          <div className="column is-6"><iframe className="pdf-frame" src={set.url} /></div>
           <div className="column is-6">{discussion}</div>
         </div>
       </div>

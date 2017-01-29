@@ -15,20 +15,20 @@ const examService = app.service('exams');
 const problemsetService = app.service('problemsets');
 const commentService = app.service('comments');
 
-app.authenticate().then(() => {
-    examService.create({url: "http://web.pdx.edu/~erdman/CALCULUS/CALCULUS_pdf.pdf", categories: ["Calculus", "Math"]})
-        .then(exam => {
-            const examId = exam._id;
-            for (let i = 0; i < 5; i++) {
-                problemsetService.create({
-                    pageNumber: i,
-                    exam: examId,
-                    tags: ["Test Tag"]
-                }).then(problemset => console.log(problemset))
-                    .catch(err => console.error(err));
-            }
-        }).catch(err => console.error(err));
-});
+// app.authenticate().then(() => {
+//     examService.create({url: "http://web.pdx.edu/~erdman/CALCULUS/CALCULUS_pdf.pdf", categories: ["Calculus", "Math"]})
+//         .then(exam => {
+//             const examId = exam._id;
+//             for (let i = 0; i < 5; i++) {
+//                 problemsetService.create({
+//                     pageNumber: i,
+//                     exam: examId,
+//                     tags: ["Test Tag"]
+//                 }).then(problemset => console.log(problemset))
+//                     .catch(err => console.error(err));
+//             }
+//         }).catch(err => console.error(err));
+// });
 
 export const setLoading = (isLoading) => {
     return {
@@ -55,47 +55,26 @@ export const setSearchTerm = (term) => {
 //   };
 // };
 
-export const createProblemSet = () => {
-    return (dispatch) => {
-        problemsetService.create({
-            url: "https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-introduction-to-algorithms-sma-5503-fall-2005/exams/prac_final_sol.pdf",
-            categories: []
-        })
-            .then(res => {
-                console.log('EXAM: ', res);
-            })
-            .catch(err => console.error(err));
-    };
+export const getExams = (problemSets) => {
+  return (dispatch) => {
+    const examsPromise = problemSets.map(problemSet => {
+      return examService.get(problemSet.exam);
+    });
+
+    Promise.all(examsPromise)
+      .then(exams => dispatch({ type: GET_EXAMS, payload: exams, }))
+      .catch(err => console.log('err: ', err));
+  };
 };
 
 export const getProblemSets = () => {
-    const mockProblemSets = [
-        {
-            url: 'https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-introduction-to-algorithms-sma-5503-fall-2005/exams/prac_final_sol.pdf',
-            categories: ['Education', 'Science'],
-        }, {
-            url: 'https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-034-artificial-intelligence-fall-2010/exams/MIT6_034F10_final_2010.pdf',
-            categories: ['Algorithms', 'Artifical Intelligence'],
-        }
-    ];
-
-    return (dispatch) => {
-        problemsetService.find({$limit: 10, $skip: 0}).then(problemsets => {
-            console.log('PROBLEM SETSSS: ', problemsets);
-            dispatch({type: PROBLEM_SETS, payload: problemsets.data})
-        }).catch(err => console.error(err));
-    };
-};
-
-export const getExams = () => {
-    return (dispatch) => {
-        examService.find({$limit: 10, $skip: 0})
-            .then(({data}) => {
-
-                dispatch({type: GET_EXAMS, payload: data})
-            })
-            .catch(err => console.error(err));
-    };
+  return (dispatch) => {
+    problemsetService.find({$limit: 10, $skip: 0})
+      .then(problemSets => {
+      dispatch(getExams(problemSets.data));
+      dispatch({type: PROBLEM_SETS, payload: problemSets.data})
+    }).catch(err => console.error(err));
+  };
 };
 
 export const currentProblemSet = (set) => {
