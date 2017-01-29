@@ -18,6 +18,7 @@ import Browse from './components/browse';
 import Search from './views/search';
 import Home from './components/home';
 import SearchResults from './views/searchResults';
+import ProblemSet from './views/problemSet';
 
 const renderApp = () => {
   render(
@@ -27,6 +28,7 @@ const renderApp = () => {
           <Route path="/browse" component={Browse} />
           <Route path="/search" component={Search} />
           <Route path="/searchResults" component={SearchResults} />
+          <Route path="/problemSet" component={ProblemSet} />
         </Route>
       </Router>
     </Provider>,

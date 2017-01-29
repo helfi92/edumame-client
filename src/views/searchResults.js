@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import SearchProblemSets from '../components/searchProblemSets';
 import * as actions from '../actions';
 
@@ -10,6 +11,7 @@ class SearchResults extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.displayProblemSets = this.displayProblemSets.bind(this);
+    this.problemSetClicked = this.problemSetClicked.bind(this);
   }
 
   onChange(event) {
@@ -27,6 +29,12 @@ class SearchResults extends Component {
 
   voteDown() {
     console.log('vote down');
+  }
+
+  problemSetClicked(set) {
+    console.log('problem set clicked', set);
+    this.props.currentProblemSet(set);
+    browserHistory.push(`/problemSet`);
   }
 
   displayProblemSets() {
@@ -53,7 +61,7 @@ class SearchResults extends Component {
                 </div>
               </div>
             </div>
-            <div className="media-content">
+            <div onClick={() => this.problemSetClicked(set)} className="media-content">
               <div className="content">
                 <p>
                   <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
@@ -61,19 +69,6 @@ class SearchResults extends Component {
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
                 </p>
               </div>
-              <nav className="level">
-                <div className="level-left">
-                  <a className="level-item">
-                    <span className="icon is-small"><i className="fa fa-reply"></i></span>
-                  </a>
-                  <a className="level-item">
-                    <span className="icon is-small"><i className="fa fa-retweet"></i></span>
-                  </a>
-                  <a className="level-item">
-                    <span className="icon is-small"><i className="fa fa-heart"></i></span>
-                  </a>
-                </div>
-              </nav>
             </div>
           </article>
         </div>

@@ -4,6 +4,7 @@ import {
   SET_USER,
   SET_USER_FAILURE,
   REGISTER_FAILURE,
+  CURRENT_PROBLEM_SET,
 } from './types';
 import app from '../app';
 
@@ -35,6 +36,13 @@ export const getProblemSets = () => {
    }, 2000);
   };
 };
+
+export const currentProblemSet = (set) => {
+  return {
+    type: CURRENT_PROBLEM_SET,
+    payload: set,
+  }
+}
 
 export const login = (email, password) => {
   return (dispatch) => {

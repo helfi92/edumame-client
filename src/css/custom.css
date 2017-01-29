@@ -30,3 +30,21 @@
 .vote-down:hover {
     color: red;
 }
+
+.pagination li {
+    list-style: none;
+}
+
+.pagination {
+    width: 720px
+}
+
+.pdf-page {
+    position: relative;
+    margin: 0 auto 3em auto;
+    padding: 0;
+    overflow: visible;
+    background-clip: content-box;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.54);
+    background-color: white;
+}
