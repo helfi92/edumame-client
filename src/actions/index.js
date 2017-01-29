@@ -5,7 +5,8 @@ import {
     SET_USER_FAILURE,
     REGISTER_FAILURE,
     CURRENT_PROBLEM_SET,
-    RETRIEVING_PROBLEM_SET
+    RETRIEVING_PROBLEM_SET,
+    GET_EXAMS,
 } from "./types";
 import app from "../app";
 
@@ -29,6 +30,16 @@ export const setSearchTerm = (term) => {
     };
 };
 
+// export const createExam = () => {
+//   return (dispatch) => {
+//     examService.create({url: "https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-introduction-to-algorithms-sma-5503-fall-2005/exams/prac_final_sol.pdf", categories: []})
+//       .then(res => {
+//         console.log('EXAM: ', res);
+//       })
+//       .catch(err => console.error(err));
+//   };
+// };
+
 export const getProblemSets = () => {
     const mockProblemSets = [
         {
@@ -42,9 +53,18 @@ export const getProblemSets = () => {
 
     return (dispatch) => {
         problemsetService.find({$limit: 10, $skip: 0}).then(problemsets => {
-            dispatch({type: PROBLEM_SETS, payload: problemsets.data})
+          console.log('PROBLEM SETSSS: ', problemsets);
+          dispatch({type: PROBLEM_SETS, payload: problemsets.data})
         }).catch(err => console.error(err));
     };
+};
+
+export const getExams = () => {
+  return (dispatch) => {
+    examService.find({$limit: 10, $skip: 0})
+      .then(({ data }) => dispatch({ type: GET_EXAMS, payload: data}))
+      .catch(err => console.error(err));
+  };
 };
 
 export const currentProblemSet = (set) => {
@@ -52,7 +72,7 @@ export const currentProblemSet = (set) => {
         type: CURRENT_PROBLEM_SET,
         payload: set,
     }
-}
+};
 
 export const login = (email, password) => {
     return (dispatch) => {

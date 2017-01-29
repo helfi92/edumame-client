@@ -12,7 +12,7 @@ class SearchResults extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
-    this.displayProblemSets = this.displayProblemSets.bind(this);
+    this.displayExams = this.displayExams.bind(this);
     this.problemSetClicked = this.problemSetClicked.bind(this);
 
     this.state = {
@@ -44,25 +44,25 @@ class SearchResults extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { problemSets, loader } = nextProps;
+    const { exams, loader } = nextProps;
 
-    if (problemSets && loader) {
+    if (exams.length && loader) {
       this.props.setLoading(false);
     }
   }
 
-  displayProblemSets() {
-    const { problemSets, loader } = this.props;
+  displayExams() {
+    const { loader, exams } = this.props;
 
-    if (!problemSets && loader) {
+    if (!exams.length && loader) {
       return <Loader />
     }
 
-    if (!problemSets) {
+    if (!exams.length) {
       return undefined;
     }
 
-    return problemSets.map((set, key) => {
+    return exams.map((set, key) => {
       return (
         <div key={key} className="box">
           <article className="media">
@@ -86,17 +86,18 @@ class SearchResults extends Component {
 
   render() {
     this.test = 'test';
-    const problemSets = this.displayProblemSets();
+    const examsDisplay = this.displayExams();
+    const exams = this.props.exams;
 
     return (
       <div className="search-results-input">
         <SearchProblemSets onChange={this.onChange} value={this.props.searchTerm} />
-        <div>{problemSets}</div>
+        <div>{examsDisplay}</div>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ searchTerm, problemSets, loader }) => ({ searchTerm, problemSets, loader });
+const mapStateToProps = ({ searchTerm, problemSets, loader, exams }) => ({ searchTerm, problemSets, loader, exams });
 
 export default connect(mapStateToProps, actions)(SearchResults);
