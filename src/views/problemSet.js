@@ -8,6 +8,16 @@ import MyPdfViewer from '../components/myPdfViewer'
 class ProblemSet extends Component {
   constructor(props) {
     super(props);
+
+    this.postComment = this.postComment.bind(this);
+  }
+
+  postComment() {
+    const comment = document.getElementById('post-comment').value;
+    const { set, user } = this.props;
+    console.log('set: ', set);
+    console.log('user: ', user);
+    this.props.postComment(user, set);
   }
 
   getDiscussion() {
@@ -53,10 +63,10 @@ class ProblemSet extends Component {
           </figure>
           <div className="media-content">
             <p className="control">
-              <textarea className="textarea" placeholder="Add a comment..."></textarea>
+              <textarea id="post-comment" className="textarea" placeholder="Add a comment..."></textarea>
             </p>
             <p className="control">
-              <button className="button">Post comment</button>
+              <button onClick={this.postComment} className="button">Post comment</button>
             </p>
           </div>
         </article>
@@ -81,6 +91,6 @@ class ProblemSet extends Component {
   }
 }
 
-const mapStateToProps = ({ searchTerm, set }) => ({ searchTerm, set });
+const mapStateToProps = ({ searchTerm, set, user }) => ({ searchTerm, set, user });
 
 export default connect(mapStateToProps, actions)(ProblemSet);

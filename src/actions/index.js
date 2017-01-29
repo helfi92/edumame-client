@@ -127,24 +127,26 @@ export const logout = () => {
     };
 };
 
-export const postComment = (user) => {
+export const postComment = (user, set) => {
     return (dispatch) => {
-        commentService.create({
-            text: "Comment text",
-            commenter: "User's ID",
-            problemset: "Problemset ID"
-        }).then(comment => {
-        })
-            .catch(err => {
-            });
+      console.log('problemset:', set._id );
+      console.log('user:', user.data._id );
+      commentService.create({
+        text: "comment here",
+        problemset: set._id,
+        commenter: user.data._id
+      }).then(comment => {
+        console.log('new comment: ', comment);
+      }).catch(err => console.log('err: ', err));
     };
 };
 
 export const comments = (user, set) => {
     return (dispatch) => {
-        commentService.find({problemset: set._id}).then(comments => {
-        }).catch(err => {
-        });
+      commentService.find({
+        problemset: set._id})
+        .then(comments => {console.log('comment: ', comments)})
+        .catch(err => {console.log(err)});
     };
 };
 
