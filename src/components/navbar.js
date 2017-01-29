@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 import Auth from './auth';
+import app from '../app';
 
 export default class Navbar extends Component {
   constructor(props) {
@@ -13,14 +14,23 @@ export default class Navbar extends Component {
 
   login(email, password) {
     this.test = 'test';
-    console.log('username: ',  email);
-    console.log('password: ', password);
+
+    app.authenticate({
+      type: 'local',
+        email,
+        password
+    }).then(result => {
+      console.log(result)
+    }).catch(err => console.error(err));
   }
 
   register(email, password) {
     this.test = 'test';
-    console.log('username: ',  email);
-    console.log('password: ', password);
+
+    app.service('users').create({email, password, firstName: "Kenta", lastName: "Iwasaki"}).then(result => {
+      console.log(result);
+      this.login(email, password);
+    }).catch(err => console.error(err));
   }
 
   render() {
