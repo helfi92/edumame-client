@@ -8,7 +8,7 @@ import {
     RETRIEVING_PROBLEM_SET,
     GET_EXAMS,
     GET_COMMENTS,
-    NEW_COMMENT,
+    NEW_COMMENT
 } from "./types";
 import app from "../app";
 
@@ -58,25 +58,25 @@ export const setSearchTerm = (term) => {
 // };
 
 export const getExams = (problemSets) => {
-  return (dispatch) => {
-    const examsPromise = problemSets.map(problemSet => {
-      return examService.get(problemSet.exam);
-    });
+    return (dispatch) => {
+        const examsPromise = problemSets.map(problemSet => {
+            return examService.get(problemSet.exam);
+        });
 
-    Promise.all(examsPromise)
-      .then(exams => dispatch({ type: GET_EXAMS, payload: exams, }))
-      .catch(err => console.log('err: ', err));
-  };
+        Promise.all(examsPromise)
+            .then(exams => dispatch({type: GET_EXAMS, payload: exams,}))
+            .catch(err => console.log('err: ', err));
+    };
 };
 
 export const getProblemSets = () => {
-  return (dispatch) => {
-    problemsetService.find({$limit: 10, $skip: 0})
-      .then(problemSets => {
-      dispatch(getExams(problemSets.data));
-      dispatch({type: PROBLEM_SETS, payload: problemSets.data})
-    }).catch(err => console.error(err));
-  };
+    return (dispatch) => {
+        problemsetService.find({$limit: 10, $skip: 0})
+            .then(problemSets => {
+                dispatch(getExams(problemSets.data));
+                dispatch({type: PROBLEM_SETS, payload: problemSets.data})
+            }).catch(err => console.error(err));
+    };
 };
 
 export const currentProblemSet = (set) => {
@@ -87,18 +87,18 @@ export const currentProblemSet = (set) => {
 };
 
 export const login = (email, password) => {
-  return (dispatch) => {
+    return (dispatch) => {
         const loginSuccess = (user) => {
-          return {
-            type: SET_USER, payload: user,
-          }
+            return {
+                type: SET_USER, payload: user,
+            }
         };
 
         const loginFailure = (err) => {
-          return {
-            type: SET_USER_FAILURE,
-            payload: err,
-          }
+            return {
+                type: SET_USER_FAILURE,
+                payload: err,
+            }
         };
 
         if (email && password) {
@@ -130,28 +130,36 @@ export const logout = () => {
 };
 
 export const getComments = (set) => {
-  return (dispatch) => {
-    commentService.find({ problemset: set._id })
-      .then(comments => dispatch({ type: GET_COMMENTS, payload: comments }))
-      .catch(err => {console.log(err)});
-  };
+    return (dispatch) => {
+        console.log(set._id);
+        commentService.find({problemset: set._id})
+            .then(comments => dispatch({type: GET_COMMENTS, payload: comments}))
+            .catch(err => {
+                console.log(err)
+            });
+    };
 };
 
-export const postComment = (user, set) => {
+export const postComment = (comment, user, set) => {
     return (dispatch) => {
-      commentService.create({ text: "comment here", problemset: set._id, commenter: user.data._id})
-        .then(comment => {
-          dispatch({ type: NEW_COMMENT, payload: comment })
-          dispatch(getComments(set));
-        })
-        .catch(err => console.log('err: ', err));
+        commentService.create({text: comment, problemset: set._id, commenter: user.data._id})
+            .then(comment => {
+                dispatch({type: NEW_COMMENT, payload: comment})
+                dispatch(getComments(set));
+            })
+            .catch(err => console.log('err: ', err));
     };
 };
 
 export const rateProblemSet = (user, set) => {
     return (dispatch) => {
-        set.upvotes.push(user._id);
-        problemsetService.update(set._id, {upvotes: set.upvotes})
+        if (set.downvotes.includes(user.data._id))
+            set.downvotes.splice(comment.downvotes.indexOf(user.data._id), 1);
+        if (set.upvotes.includes(user.data._id))
+            set.upvotes.splice(set.upvotes.indexOf(user.data._id), 1);
+        else set.upvotes.push(user.data._id);
+
+        problemsetService.update(set._id, {$set: {upvotes: set.upvotes, downvotes: set.downvotes}})
             .then(problemset => {
             }).catch(err => {
         });
@@ -160,31 +168,39 @@ export const rateProblemSet = (user, set) => {
 
 
 export const downVoteComment = (user, set, comment) => {
-  return (dispatch) => {
-    if (!comment.upvotes.includes(user._id)) {
-      comment.downvotes.push(user._id);
-    }
+    return (dispatch) => {
+        if (comment.upvotes.includes(user.data._id))
+            comment.upvotes.splice(comment.upvotes.indexOf(user.data._id), 1);
+        if (comment.downvotes.includes(user.data._id))
+            comment.downvotes.splice(comment.downvotes.indexOf(user.data._id), 1);
+        else
+            comment.downvotes.push(user.data._id);
 
-    commentService.update(comment._id, { downvotes: comment.downvotes })
-      .then(comment => {
-        dispatch(getComments(set));
-      })
-      .catch(err => {console.log('err: ', err)});
-  };
+        commentService.update(comment._id, {$set: {upvotes: comment.upvotes, downvotes: comment.downvotes}})
+            .then(comment => {
+                dispatch(getComments(set));
+            })
+            .catch(err => {
+                console.log('err: ', err)
+            });
+    };
 };
 
 export const upVoteComment = (user, set, comment) => {
-  return (dispatch) => {
-    if (!comment.upvotes.includes(user._id)) {
-      comment.upvotes.push(user._id);
+    return (dispatch) => {
+        if (comment.downvotes.includes(user.data._id))
+            comment.downvotes.splice(comment.downvotes.indexOf(user.data._id), 1);
+        if (comment.upvotes.includes(user.data._id))
+            comment.upvotes.splice(comment.upvotes.indexOf(user.data._id), 1);
+        else
+            comment.upvotes.push(user.data._id);
 
-      commentService.update(comment._id, { upvotes: comment.upvotes })
-        .then(comment => {
-          dispatch(getComments(set));
-        })
-        .catch(err => {
-          console.log('err: ', err)
-        });
+        commentService.update(comment._id, {$set: {upvotes: comment.upvotes, downvotes: comment.downvotes}})
+            .then(comment => {
+                dispatch(getComments(set));
+            })
+            .catch(err => {
+                console.log('err: ', err)
+            });
     };
-  };
 };
