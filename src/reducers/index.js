@@ -3,12 +3,14 @@ import searchReducer from './search';
 import problemSets from './problemSets';
 import userReducer from './user';
 import currentProblemSetReducer from './set';
+import loaderReducer from './loader';
 
 const rootReducer = combineReducers({
   problemSets: problemSets,
   searchTerm: searchReducer,
   user: userReducer,
   set: currentProblemSetReducer,
+  loader: loaderReducer,
 });
 
 export default rootReducer;

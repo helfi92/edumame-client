@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import SearchProblemSets from '../components/searchProblemSets';
 import * as actions from '../actions';
+import Loader from '../components/loader';
 
 class SearchResults extends Component {
   constructor(props) {
@@ -12,6 +13,10 @@ class SearchResults extends Component {
     this.onSearch = this.onSearch.bind(this);
     this.displayProblemSets = this.displayProblemSets.bind(this);
     this.problemSetClicked = this.problemSetClicked.bind(this);
+
+    this.state = {
+      isRetrieving: false
+    }
   }
 
   onChange(event) {
@@ -37,11 +42,23 @@ class SearchResults extends Component {
     browserHistory.push(`/problemSet`);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { problemSets, loader } = nextProps;
+
+    if (problemSets && loader) {
+      this.props.setLoading(false);
+    }
+  }
+
   displayProblemSets() {
-    const { problemSets } = this.props;
+    const { problemSets, loader } = this.props;
+
+    if (!problemSets && loader) {
+      return <Loader />
+    }
 
     if (!problemSets) {
-      return <div>None</div>
+      return undefined;
     }
 
     return problemSets.map((set, key) => {
@@ -89,6 +106,6 @@ class SearchResults extends Component {
   }
 }
 
-const mapStateToProps = ({ searchTerm, problemSets }) => ({ searchTerm, problemSets });
+const mapStateToProps = ({ searchTerm, problemSets, loader }) => ({ searchTerm, problemSets, loader });
 
 export default connect(mapStateToProps, actions)(SearchResults);

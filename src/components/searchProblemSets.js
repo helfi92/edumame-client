@@ -16,6 +16,7 @@ class SearchProblemSets extends Component {
   handleOnKeyPress(event) {
     if(event.key === 'Enter') {
       console.log('ENTER!');
+      this.props.setLoading(true);
       this.props.getProblemSets();
     }
   }

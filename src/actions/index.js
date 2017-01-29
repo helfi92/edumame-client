@@ -5,8 +5,16 @@ import {
   SET_USER_FAILURE,
   REGISTER_FAILURE,
   CURRENT_PROBLEM_SET,
+  RETRIEVING_PROBLEM_SET,
 } from './types';
 import app from '../app';
+
+export const setLoading = (isLoading) => {
+  return {
+    type: RETRIEVING_PROBLEM_SET,
+    payload: isLoading,
+  }
+};
 
 // Term to save before switching to a different view
 export const setSearchTerm = (term) => {
