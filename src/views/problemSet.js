@@ -19,11 +19,15 @@ class ProblemSet extends Component {
 
   render() {
     this.test = 'test';
-    console.log('current set: ', this.props.set);
+    const { set } = this.props;
+    console.log('current set: ', set);
     return (
       <div>
         <SearchProblemSets onChange={this.onChange} value={this.props.searchTerm} />
-        <MyPdfViewer />
+        <div className="columns">
+          <div className="column is-6"><iframe className="pdf-frame" src={set.url || 'https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-introduction-to-algorithms-sma-5503-fall-2005/exams/prac_final_sol.pdf'} /></div>
+          <div className="column is-6">comments</div>
+        </div>
       </div>
     );
   }
