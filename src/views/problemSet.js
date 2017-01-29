@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SearchProblemSets from '../components/searchProblemSets';
 import * as actions from '../actions';
+import Vote from '../components/vote';
 import MyPdfViewer from '../components/myPdfViewer'
 
 class ProblemSet extends Component {
@@ -14,9 +15,7 @@ class ProblemSet extends Component {
       <div>
         <article className="media">
           <figure className="media-left">
-            <p className="image is-64x64">
-              <img src="http://bulma.io/images/placeholders/128x128.png" />
-            </p>
+            <Vote />
           </figure>
           <div className="media-content">
             <div className="content">
@@ -32,9 +31,7 @@ class ProblemSet extends Component {
         </article>
         <article className="media">
           <figure className="media-left">
-            <p className="image is-64x64">
-              <img src="http://bulma.io/images/placeholders/128x128.png" />
-            </p>
+            <Vote />
           </figure>
           <div className="media-content">
             <div className="content">
@@ -71,7 +68,7 @@ class ProblemSet extends Component {
     this.test = 'test';
     const { set } = this.props;
     const discussion = this.getDiscussion();
-    console.log('current set: ', set);
+
     return (
       <div>
         <h1 className="title">Problem Set</h1>

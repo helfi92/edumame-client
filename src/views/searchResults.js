@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import SearchProblemSets from '../components/searchProblemSets';
 import * as actions from '../actions';
 import Loader from '../components/loader';
+import Vote from '../components/vote';
 
 class SearchResults extends Component {
   constructor(props) {
@@ -65,18 +66,8 @@ class SearchResults extends Component {
       return (
         <div key={key} className="box">
           <article className="media">
-            <div className="media-left rating-container">
-              <div>
-                <div onClick={this.voteUp} className="vote vote-up">
-                  <i className="fa fa-angle-up"></i>
-                </div>
-                <div>
-                  <span>4</span>
-                </div>
-                <div onClick={this.voteDown} className="vote vote-down">
-                  <i className="fa fa-angle-down"></i>
-                </div>
-              </div>
+            <div className="media-left vote-container">
+              <Vote />
             </div>
             <div onClick={() => this.problemSetClicked(set)} className="media-content">
               <div className="content">
