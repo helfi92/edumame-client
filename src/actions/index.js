@@ -81,3 +81,27 @@ export const logout = () => {
       .catch(err => dispatch({ type: 'LOGOUT', payload: err }));
   };
 };
+
+export const postComment = (user) => {
+  return (dispatch) => {
+
+  };
+};
+
+export const comments = (user, set) => {
+  return (dispatch) => {
+
+  };
+};
+
+export const rateProblemSet = (user, set) => {
+  return (dispatch) => {
+
+  };
+};
+
+export const rateComment = (user, set, comment) => {
+  return (dispatch) => {
+
+  };
+};
