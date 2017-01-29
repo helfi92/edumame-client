@@ -85,14 +85,19 @@ export const currentProblemSet = (set) => {
 };
 
 export const login = (email, password) => {
-    return (dispatch) => {
-        const loginSuccess = (user) => ({
+  return (dispatch) => {
+        const loginSuccess = (user) => {
+          return {
             type: SET_USER, payload: user,
-        });
+          }
+        };
 
-        const loginFailure = (err) => ({
-            type: SET_USER_FAILURE, payload: err,
-        });
+        const loginFailure = (err) => {
+          return {
+            type: SET_USER_FAILURE,
+            payload: err,
+          }
+        };
 
         if (email && password) {
             app.authenticate({type: 'local', email, password,})
