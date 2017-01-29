@@ -71,9 +71,9 @@ export const getExams = (problemSets) => {
     };
 };
 
-export const getProblemSets = () => {
+export const getProblemSets = (searchTerm) => {
     return (dispatch) => {
-        problemsetService.find({$limit: 10, $skip: 0})
+        problemsetService.find({$limit: 10, $skip: 0, url: {$regex: new RegExp(searchTerm, 'i')}})
             .then(problemSets => {
                 dispatch(getExams(problemSets.data));
                 dispatch({type: PROBLEM_SETS, payload: problemSets.data})
