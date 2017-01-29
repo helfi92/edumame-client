@@ -24,7 +24,7 @@ class ProblemSet extends Component {
     const { set, user } = this.props;
     console.log('set: ', set);
     console.log('user: ', user);
-    this.props.postComment(user, set);
+    this.props.postComment(comment, user, set);
   }
 
   renderComments() {

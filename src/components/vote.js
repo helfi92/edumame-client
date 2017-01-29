@@ -32,7 +32,7 @@ class Vote extends Component {
           <i className="fa fa-angle-up"></i>
         </div>
         <div>
-          <span>{comment ? comment.upvotes.length : 0}</span>
+          <span>{comment ? comment.upvotes.length - comment.downvotes.length : 0}</span>
         </div>
         <div onClick={this.onVoteDown} className="vote vote-down">
           <i className="fa fa-angle-down"></i>
