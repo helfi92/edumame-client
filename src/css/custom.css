@@ -18,3 +18,15 @@
 .nav-auth {
     display: inherit;
 }
+
+.vote {
+    cursor: pointer;
+}
+
+.vote-up:hover {
+    color: green;
+}
+
+.vote-down:hover {
+    color: red;
+}

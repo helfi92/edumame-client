@@ -42,13 +42,13 @@ class SearchResults extends Component {
           <article className="media">
             <div className="media-left rating-container">
               <div>
-                <div onClick={this.voteUp} className="vote up">
+                <div onClick={this.voteUp} className="vote vote-up">
                   <i className="fa fa-angle-up"></i>
                 </div>
                 <div>
                   <span>4</span>
                 </div>
-                <div onClick={this.voteDown}>
+                <div onClick={this.voteDown} className="vote vote-down">
                   <i className="fa fa-angle-down"></i>
                 </div>
               </div>
