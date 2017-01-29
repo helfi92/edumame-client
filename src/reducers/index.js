@@ -5,6 +5,7 @@ import userReducer from './user';
 import currentProblemSetReducer from './set';
 import loaderReducer from './loader';
 import examsReducer from './exams';
+import commentsReducer from './comments';
 
 const rootReducer = combineReducers({
   problemSets: problemSets,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   set: currentProblemSetReducer,
   loader: loaderReducer,
   exams: examsReducer,
+  comments: commentsReducer,
 });
 
 export default rootReducer;

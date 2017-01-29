@@ -6,7 +6,8 @@ import {
     REGISTER_FAILURE,
     CURRENT_PROBLEM_SET,
     RETRIEVING_PROBLEM_SET,
-    GET_EXAMS
+    GET_EXAMS,
+    GET_COMMENTS,
 } from "./types";
 import app from "../app";
 
@@ -129,23 +130,16 @@ export const logout = () => {
 
 export const postComment = (user, set) => {
     return (dispatch) => {
-      console.log('problemset:', set._id );
-      console.log('user:', user.data._id );
-      commentService.create({
-        text: "comment here",
-        problemset: set._id,
-        commenter: user.data._id
-      }).then(comment => {
-        console.log('new comment: ', comment);
-      }).catch(err => console.log('err: ', err));
+      commentService.create({ text: "comment here", problemset: set._id, commenter: user.data._id})
+        .then(comment => { console.log('new comment: ', comment);})
+        .catch(err => console.log('err: ', err));
     };
 };
 
-export const comments = (user, set) => {
+export const getComments = (set) => {
     return (dispatch) => {
-      commentService.find({
-        problemset: set._id})
-        .then(comments => {console.log('comment: ', comments)})
+      commentService.find({ problemset: set._id })
+        .then(comments => dispatch({ type: GET_COMMENTS, payload: comments }))
         .catch(err => {console.log(err)});
     };
 };

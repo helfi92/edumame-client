@@ -10,6 +10,13 @@ class ProblemSet extends Component {
     super(props);
 
     this.postComment = this.postComment.bind(this);
+    this.renderComments = this.renderComments.bind(this);
+  }
+
+  componentDidMount() {
+    const { set } = this.props;
+
+    this.props.getComments(set);
   }
 
   postComment() {
@@ -20,10 +27,16 @@ class ProblemSet extends Component {
     this.props.postComment(user, set);
   }
 
-  getDiscussion() {
-    return (
-      <div>
-        <article className="media">
+  renderComments() {
+    const { comments } = this.props;
+
+    if (!comments) {
+      return undefined;
+    }
+
+    return comments.map((comment, key)=> {
+      return (
+        <article key={key} className="media">
           <figure className="media-left">
             <Vote />
           </figure>
@@ -32,33 +45,25 @@ class ProblemSet extends Component {
               <p>
                 <strong>Barbara Middleton</strong>
                 <br />
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
-                  <br />
-                    <small><a>Like</a> · <a>Reply</a> · 3 hrs</small>
-              </p>
-            </div>
-          </div>
-        </article>
-        <article className="media">
-          <figure className="media-left">
-            <Vote />
-          </figure>
-          <div className="media-content">
-            <div className="content">
-              <p>
-                <strong>Hassan Ali</strong>
-                <br />
-                Yeah makes sense, I agree
+                {comment.text}
                 <br />
                 <small><a>Like</a> · <a>Reply</a> · 3 hrs</small>
               </p>
             </div>
           </div>
         </article>
+      )
+    });
+  }
+
+  getDiscussion() {
+    return (
+      <div>
+        {this.renderComments()}
         <article className="media">
           <figure className="media-left">
             <p className="image is-64x64">
-              <img src="http://bulma.io/images/placeholders/128x128.png" />
+              <img src="https://scontent.fyhu1-1.fna.fbcdn.net/v/t1.0-9/15823396_10154129442740978_3333110081233978289_n.jpg?oh=ead5eddf742876d72f0a6ba2b6d812d5&oe=5913FC9A" />
             </p>
           </figure>
           <div className="media-content">
@@ -78,7 +83,7 @@ class ProblemSet extends Component {
     this.test = 'test';
     const { set } = this.props;
     const discussion = this.getDiscussion();
-
+    console.log('COMMENTS: ', this.props.comments);
     return (
       <div>
         <h1 className="title">Problem Set</h1>
@@ -91,6 +96,6 @@ class ProblemSet extends Component {
   }
 }
 
-const mapStateToProps = ({ searchTerm, set, user }) => ({ searchTerm, set, user });
+const mapStateToProps = ({ searchTerm, set, user, comments }) => ({ searchTerm, set, user, comments });
 
 export default connect(mapStateToProps, actions)(ProblemSet);
