@@ -17,8 +17,7 @@ class SearchProblemSets extends Component {
     if(event.key === 'Enter') {
       console.log('ENTER!');
       this.props.setLoading(true);
-      this.props.getProblemSets();
-      this.props.googleSearch('computer science');
+      this.props.googleSearch(this.props.searchTerm);
     }
   }
 
@@ -35,5 +34,6 @@ class SearchProblemSets extends Component {
     );
   }
 }
+const mapStateToProps = ({ searchTerm }) => ({ searchTerm });
 
-export default connect(null, actions)(SearchProblemSets);
+export default connect(mapStateToProps, actions)(SearchProblemSets);

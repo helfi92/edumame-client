@@ -8,7 +8,8 @@ import {
     RETRIEVING_PROBLEM_SET,
     GET_EXAMS,
     GET_COMMENTS,
-    NEW_COMMENT
+    NEW_COMMENT,
+    CLEAR_EXAMS,
 } from "./types";
 import app from "../app";
 import axios from 'axios';
@@ -153,7 +154,7 @@ export const postComment = (comment, user, set) => {
     return (dispatch) => {
         commentService.create({text: comment, problemset: set._id, commenter: user.data._id})
             .then(comment => {
-                dispatch({type: NEW_COMMENT, payload: comment})
+                dispatch({type: NEW_COMMENT, payload: comment});
                 dispatch(getComments(set));
             })
             .catch(err => console.log('err: ', err));
@@ -214,8 +215,15 @@ export const upVoteComment = (user, set, comment) => {
     };
 };
 
+export const clearPdfs = () => {
+    return {
+        type: CLEAR_EXAMS
+    }
+}
+
 export const googleSearch = (term) => {
     return (dispatch) => {
+        dispatch(clearPdfs());
         axios.get(`http://localhost:3030/scrape?term=${term}`).then(({data}) => {
             dispatch({type: 'GET_EXAMS', payload: data});
         }).catch(err => console.log('ERR GOOGLE', err));

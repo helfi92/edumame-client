@@ -10,3 +10,4 @@ export const CREATE_COMMENT = 'CREATE_COMMENT';
 export const GET_COMMENTS = 'GET_COMMENTS';
 export const NEW_COMMENT = 'NEW_COMMENT';
 export const URLS = 'URLS';
+export const CLEAR_EXAMS = 'CLEAR_EXAMS';
