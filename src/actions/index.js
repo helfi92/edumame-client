@@ -40,6 +40,16 @@ export const setSearchTerm = (term) => {
 //   };
 // };
 
+export const createProblemSet = () => {
+  return (dispatch) => {
+    problemsetService.create({url: "https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-introduction-to-algorithms-sma-5503-fall-2005/exams/prac_final_sol.pdf", categories: []})
+      .then(res => {
+        console.log('EXAM: ', res);
+      })
+      .catch(err => console.error(err));
+  };
+};
+
 export const getProblemSets = () => {
     const mockProblemSets = [
         {
@@ -62,7 +72,10 @@ export const getProblemSets = () => {
 export const getExams = () => {
   return (dispatch) => {
     examService.find({$limit: 10, $skip: 0})
-      .then(({ data }) => dispatch({ type: GET_EXAMS, payload: data}))
+      .then(({ data }) => {
+
+        dispatch({ type: GET_EXAMS, payload: data})
+      })
       .catch(err => console.error(err));
   };
 };
