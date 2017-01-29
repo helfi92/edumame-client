@@ -22,7 +22,7 @@ class SearchResults extends Component {
 
   onChange(event) {
     console.log('event: ', event);
-    this.props.setSearchTerm(event.target.value);
+    this.props.search(event.target.value);
   }
 
   onSearch() {
@@ -72,9 +72,8 @@ class SearchResults extends Component {
             <div onClick={() => this.problemSetClicked(set)} className="media-content">
               <div className="content">
                 <p>
-                  <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
                   <br />
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+                  {set}
                 </p>
               </div>
             </div>

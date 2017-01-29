@@ -88,7 +88,7 @@ class ProblemSet extends Component {
       <div>
         <h1 className="title">Problem Set</h1>
         <div className="columns">
-          <div className="column is-6"><iframe className="pdf-frame" src={set.url} /></div>
+          <div className="column is-6"><iframe className="pdf-frame" src={set} /></div>
           <div className="column is-6">{discussion}</div>
         </div>
       </div>
