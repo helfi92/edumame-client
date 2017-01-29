@@ -104,12 +104,20 @@ export const login = (email, password) => {
 
         if (email && password) {
             app.authenticate({type: 'local', email, password,})
-                .then(user => dispatch(loginSuccess(user)))
-                .catch(err => dispatch(loginFailure(err)));
+                .then(user => {
+                    dispatch(loginSuccess(user));
+                })
+                .catch(err => {
+                    dispatch(loginFailure(err))
+                });
         } else {
             app.authenticate()
-                .then(user => dispatch(loginSuccess(user)))
-                .catch(err => dispatch(loginFailure(err)));
+                .then(user => {
+                    dispatch(loginSuccess(user))
+                })
+                .catch(err => {
+                    dispatch(loginFailure(err))
+                });
         }
     };
 };
