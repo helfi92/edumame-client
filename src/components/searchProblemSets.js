@@ -17,7 +17,6 @@ class SearchProblemSets extends Component {
     if(event.key === 'Enter') {
       console.log('ENTER!');
       this.props.setLoading(true);
-      this.props.googleSearch(this.props.searchTerm);
       this.props.getProblemSets(this.props.searchTerm);
     }
   }
