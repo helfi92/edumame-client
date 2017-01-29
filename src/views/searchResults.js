@@ -73,7 +73,7 @@ class SearchResults extends Component {
               <div className="content">
                 <p>
                   <br />
-                  {set}
+                  {set.url}
                 </p>
               </div>
             </div>

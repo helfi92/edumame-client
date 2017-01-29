@@ -152,6 +152,7 @@ export const getComments = (set) => {
 
 export const postComment = (comment, user, set) => {
     return (dispatch) => {
+        console.log(user, set);
         commentService.create({text: comment, problemset: set._id, commenter: user.data._id})
             .then(comment => {
                 dispatch({type: NEW_COMMENT, payload: comment});
