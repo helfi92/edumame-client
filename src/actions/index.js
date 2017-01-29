@@ -155,11 +155,13 @@ export const rateProblemSet = (user, set) => {
 };
 
 export const rateComment = (user, set, comment) => {
+    console.log('rating comment!');
     return (dispatch) => {
         comment.upvotes.push(user._id);
-        commentService.update(comment._id, {upvotes: comment.upvotes})
-            .then(comment => {
-            }).catch(err => {
-        });
+        commentService.update(comment._id, { upvotes: comment.upvotes, downvotes: comment.downvotes })
+          .then(comment => {
+            dispatch(getComments(set));
+          })
+          .catch(err => {console.log('err: ', err)});
     };
 };

@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import * as actions from '../actions';
 
 class Vote extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onVoteUp = this.onVoteUp.bind(this);
+    this.onVoteDown = this.onVoteDown.bind(this);
+  }
+
+  onVoteUp() {
+    const { comment, user, set, rateComment } = this.props;
+
+    rateComment(user, set, comment);
+  }
+
+  onVoteDown() {
+    const { comment, user, set } = this.props;
+  }
+
   render() {
     this.test = '';
-    const onVoteUp = () => {
-      console.log('vote up');
-    };
-
-    const onVoteDown = () => {
-      console.log('vote down');
-    };
+    const { comment } = this.props;
 
     return (
       <div className="vote-container">
@@ -17,7 +30,7 @@ class Vote extends Component {
           <i className="fa fa-angle-up"></i>
         </div>
         <div>
-          <span>4</span>
+          <span>{comment ? comment.upvotes.length : 0}</span>
         </div>
         <div onClick={this.onVoteDown} className="vote vote-down">
           <i className="fa fa-angle-down"></i>
@@ -27,4 +40,4 @@ class Vote extends Component {
   }
 }
 
-export default Vote;
+export default connect(null, actions)(Vote);

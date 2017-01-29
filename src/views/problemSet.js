@@ -28,7 +28,7 @@ class ProblemSet extends Component {
   }
 
   renderComments() {
-    const { comments } = this.props;
+    const { comments, user, set, comment } = this.props;
 
     if (!comments) {
       return undefined;
@@ -38,7 +38,7 @@ class ProblemSet extends Component {
       return (
         <article key={key} className="media">
           <figure className="media-left">
-            <Vote />
+            <Vote user={user} comment={comment} set={set} />
           </figure>
           <div className="media-content">
             <div className="content">
@@ -96,6 +96,6 @@ class ProblemSet extends Component {
   }
 }
 
-const mapStateToProps = ({ searchTerm, set, user, comments }) => ({ searchTerm, set, user, comments });
+const mapStateToProps = ({ searchTerm, set, user, comments, comment }) => ({ searchTerm, set, user, comments, comment });
 
 export default connect(mapStateToProps, actions)(ProblemSet);
