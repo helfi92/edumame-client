@@ -204,3 +204,11 @@ export const upVoteComment = (user, set, comment) => {
             });
     };
 };
+
+export const googleSearch = (term) => {
+    return (dispatch) => {
+        axios.get(`http://localhost:3030/scrape?term=${term}`).then(({data}) => {
+            dispatch({type: 'GET_EXAMS', payload: data});
+        }).catch(err => console.log('ERR GOOGLE', err));
+    };
+};

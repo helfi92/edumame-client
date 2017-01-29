@@ -34,6 +34,8 @@ class ProblemSet extends Component {
       return undefined;
     }
 
+    console.log(comments)
+
     return comments.map((cmnt, key)=> {
       return (
         <article key={key} className="media">
