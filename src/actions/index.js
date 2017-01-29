@@ -11,6 +11,7 @@ import {
     NEW_COMMENT
 } from "./types";
 import app from "../app";
+import axios from 'axios';
 
 const userService = app.service('users');
 const examService = app.service('exams');

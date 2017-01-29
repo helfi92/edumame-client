@@ -22,7 +22,7 @@ class SearchResults extends Component {
 
   onChange(event) {
     console.log('event: ', event);
-    this.props.search(event.target.value);
+    this.props.setSearchTerm(event.target.value);
   }
 
   onSearch() {
